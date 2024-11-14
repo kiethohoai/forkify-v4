@@ -1,8 +1,6 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 
-
-
 // todo renderSpinner
 
 // todo controlRecipe
@@ -27,4 +25,6 @@ const controlRecipe = async function () {
 controlRecipe();
 
 // todo Event listeners
-['hashchange', 'load'].forEach((ev) => window.addEventListener(ev, controlRecipe));
+const init = (function () {
+  recipeView.addHandlerRender(controlRecipe);
+})();
