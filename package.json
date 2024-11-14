@@ -1,0 +1,16 @@
+{
+  "name": "forkify-v4",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "sv": "live-server",
+    "sass": "sass --watch src/sass/main.scss src/css/main.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "sass": "^1.80.6"
+  }
+}
