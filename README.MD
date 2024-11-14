@@ -2,3 +2,4 @@
 006 Rendering the Recipe
 007 Listening For load and hashchange Events
 008 The MVC Architecture
+009 Refactoring for MVC
