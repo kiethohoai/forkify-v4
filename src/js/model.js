@@ -4,6 +4,10 @@ import { API_URL } from './config.js';
 // todo state
 export const state = {
   recipe: {},
+  search: {
+    query: '',
+    results: [],
+  },
 };
 
 // todo loadRecipe
@@ -28,3 +32,25 @@ export const loadRecipe = async function (id) {
     throw error;
   }
 };
+
+// todo loadSearchResults
+export const loadSearchResults = async function (query) {
+  try {
+    // Fetch data
+    const data = await getJSON(`${API_URL}?search=${query}`);
+
+    // Add data to search state
+    state.search.query = query;
+    state.search.results = data.data.recipes.map((rec) => {
+      return {
+        id: rec.id,
+        title: rec.title,
+        image: rec.image_url,
+        publisher: rec.publisher,
+      };
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+loadSearchResults();

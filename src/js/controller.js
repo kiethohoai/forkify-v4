@@ -1,5 +1,6 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js';
 
 // todo renderSpinner
 
@@ -23,9 +24,23 @@ const controlRecipe = async function () {
     recipeView.renderError();
   }
 };
-controlRecipe();
+
+// todo controlSearchResult
+const controlSearchResult = async function () {
+  try {
+    // get query
+    const query = searchView.getQuery();
+    if (!query) return;
+
+    // fetching data
+    await model.loadSearchResults(query);
+  } catch (error) {
+    console.log(`error (controlSearchResult):`, error);
+  }
+};
 
 // todo Event listeners
 const init = (function () {
   recipeView.addHandlerRender(controlRecipe);
+  searchView.addHandlerSearch(controlSearchResult);
 })();
