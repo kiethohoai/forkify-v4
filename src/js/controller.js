@@ -11,6 +11,9 @@ const controlRecipe = async function () {
     const id = window.location.hash.slice(1);
     if (!id) return;
 
+    // Update results view to mark selected search results
+    resultsView.update(model.getSearchResultsPage());
+
     /* Render spinner */
     recipeView.renderSpinner();
 
@@ -61,13 +64,14 @@ const controlPagination = function (gotoPage) {
 
 // todo controlServings
 const controlServings = function (newServings) {
-  console.log(`🚀CHECK > newServings:`, newServings);
-
   // Update the recipe servings (in state)
   model.updateServings(newServings);
 
   // Update the Recipe View (All UI)
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+
+  // Update the Recipe View (Only Update Elements Changed)
+  recipeView.update(model.state.recipe);
 };
 
 // todo Event listeners
