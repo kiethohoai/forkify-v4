@@ -14,3 +14,4 @@
 018 Updating Recipe Servings
 020 Implementing Bookmarks - Part 1
 021 Implementing Bookmarks - Part 2
+022 Storing Bookmarks With localStorage
