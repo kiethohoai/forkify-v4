@@ -76,7 +76,7 @@ export default class View {
       <div class="message">
         <div>
           <svg>
-            <use href="src/img/icons.svg#icon-alert-triangle"></use>
+            <use href="src/img/icons.svg#icon-smile"></use>
           </svg>
         </div>
         <p>${message}</p>

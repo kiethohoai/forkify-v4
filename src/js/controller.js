@@ -5,6 +5,7 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarkView.js';
 import addRecipeView from './views/addRecipeView.js';
+import { MODAL_CLOSE_SEC } from './config.js';
 
 // todo controlRecipe
 const controlRecipe = async function () {
@@ -97,8 +98,27 @@ const controlBookmarks = function () {
 };
 
 // controlAddRecipe
-const controlAddRecipe = function (newRecipe) {
-  console.log(`🚀CHECK > newRecipe:`, newRecipe);
+const controlAddRecipe = async function (newRecipe) {
+  try {
+    addRecipeView.renderSpinner();
+
+    // Update the new recipe data
+    await model.uploadRecipe(newRecipe);
+    
+    // Render recipe
+    recipeView.render(model.state.recipe);
+
+    // Display success message
+    addRecipeView.renderMessage();
+
+    // Close form window
+    setTimeout(() => {
+      addRecipeView._toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
+  } catch (error) {
+    console.error(`error (controlAddRecipe):`, error);
+    addRecipeView.renderError(error.message);
+  }
 };
 
 // todo Event listeners
