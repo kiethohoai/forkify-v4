@@ -53,8 +53,6 @@ const controlSearchResult = async function () {
 
 // todo controlPagination
 const controlPagination = function (gotoPage) {
-  console.log(`🚀CHECK > gotoPage:`, gotoPage);
-
   // render NEW results
   resultsView.render(model.getSearchResultsPage(gotoPage));
 
@@ -74,10 +72,22 @@ const controlServings = function (newServings) {
   recipeView.update(model.state.recipe);
 };
 
+// todo controlAddBookmark
+const controlAddBookmark = function () {
+  if (!model.state.recipe.bookmarked) {
+    model.addBookmark(model.state.recipe);
+  } else {
+    model.deleteBookmark(model.state.recipe.id);
+  }
+
+  recipeView.update(model.state.recipe);
+};
+
 // todo Event listeners
 const init = (function () {
   recipeView.addHandlerRender(controlRecipe);
   recipeView.addHandlerUpdateServings(controlServings);
+  recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResult);
   paginationView.addHandlerClick(controlPagination);
 })();

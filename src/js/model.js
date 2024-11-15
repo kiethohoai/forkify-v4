@@ -10,6 +10,7 @@ export const state = {
     resultsPerPage: RES_PER_PAGE,
     page: 1,
   },
+  bookmarks: [],
 };
 
 // todo loadRecipe
@@ -30,6 +31,13 @@ export const loadRecipe = async function (id) {
       sourceUrl: recipe.source_url,
       cookingTime: recipe.cooking_time,
     };
+
+    // add bookmarked state into current recipe
+    if (state.bookmarks.some((bookmark) => bookmark.id === id)) {
+      state.recipe.bookmarked = true;
+    } else {
+      state.recipe.bookmarked = false;
+    }
   } catch (error) {
     throw error;
   }
@@ -70,4 +78,26 @@ export const updateServings = function (newServings) {
     ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
   });
   state.recipe.servings = newServings;
+};
+
+// todo addBookmark
+export const addBookmark = function (recipe) {
+  // add bookmark
+  state.bookmarks.push(recipe);
+
+  // mark current recipe as bookmark
+  if (recipe.id === state.recipe.id) {
+    state.recipe.bookmarked = true;
+  }
+};
+
+// todo deleteBookmark
+export const deleteBookmark = function (id) {
+  // Find & delete current recipe in bookmarks state
+  const index = state.bookmarks.findIndex((el) => el.id === id);
+  if (index === -1) return;
+  state.bookmarks.splice(index, 1);
+
+  // Un-mark current recipe
+  if (state.recipe.id === id) state.recipe.bookmarked = false;
 };
