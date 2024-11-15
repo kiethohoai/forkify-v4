@@ -48,6 +48,7 @@ const controlSearchResult = async function () {
   }
 };
 
+// todo controlPagination
 const controlPagination = function (gotoPage) {
   console.log(`🚀CHECK > gotoPage:`, gotoPage);
 
