@@ -44,7 +44,9 @@ class RecipeView extends View {
           <svg class="recipe__info-icon">
             <use href="src/img/icons.svg#icon-clock"></use>
           </svg>
-          <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>
+          <span class="recipe__info-data recipe__info-data--minutes">${
+            this._data.cookingTime
+          }</span>
           <span class="recipe__info-text">minutes</span>
         </div>
         <div class="recipe__info">
@@ -55,12 +57,16 @@ class RecipeView extends View {
           <span class="recipe__info-text">servings</span>
 
           <div class="recipe__info-buttons">
-            <button data-update-to="${this._data.servings - 1}" class="btn--tiny btn--update-servings">
+            <button data-update-to="${
+              this._data.servings - 1
+            }" class="btn--tiny btn--update-servings">
               <svg>
                 <use href="src/img/icons.svg#icon-minus-circle"></use>
               </svg>
             </button>
-            <button data-update-to="${this._data.servings + 1}" class="btn--tiny btn--update-servings">
+            <button data-update-to="${
+              this._data.servings + 1
+            }" class="btn--tiny btn--update-servings">
               <svg>
                 <use href="src/img/icons.svg#icon-plus-circle"></use>
               </svg>
@@ -68,14 +74,16 @@ class RecipeView extends View {
           </div>
         </div>
 
-        <div class="recipe__user-generated">
+        <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">
           <svg>
             <use href="src/img/icons.svg#icon-user"></use>
           </svg>
         </div>
         <button class="btn--round btn--bookmark">
           <svg class="">
-            <use href="src/img/icons.svg#icon-bookmark${this._data.bookmarked ? '-fill' : ''}"></use>
+            <use href="src/img/icons.svg#icon-bookmark${
+              this._data.bookmarked ? '-fill' : ''
+            }"></use>
           </svg>
         </button>
       </div>
@@ -114,7 +122,7 @@ class RecipeView extends View {
         <svg class="recipe__icon">
           <use href="src/img/icons.svg#icon-check"></use>
         </svg>
-        <div class="recipe__quantity">${ing.quantity ? +ing.quantity : 0}</div>
+        <div class="recipe__quantity">${ing.quantity ? +ing.quantity.toFixed(2) : 0}</div>
         <div class="recipe__description">
           <span class="recipe__unit">${ing.unit}</span>
           ${ing.description}

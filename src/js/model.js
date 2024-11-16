@@ -1,4 +1,4 @@
-import { getJSON, sendJSON } from './helpers.js';
+import { AJAX } from './helpers.js';
 import { API_KEY, API_URL, RES_PER_PAGE } from './config.js';
 
 // state
@@ -33,7 +33,7 @@ const createRecipeObject = function (data) {
 export const loadRecipe = async function (id) {
   try {
     /* Fetch & get data */
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await AJAX(`${API_URL}/${id}?key=${API_KEY}`);
 
     /* Format & save data state` */
     state.recipe = createRecipeObject(data);
@@ -53,7 +53,7 @@ export const loadRecipe = async function (id) {
 export const loadSearchResults = async function (query) {
   try {
     // Fetch data
-    const data = await getJSON(`${API_URL}?search=${query}`);
+    const data = await AJAX(`${API_URL}?search=${query}&key=${API_KEY}`);
 
     // Add data to search state
     state.search.query = query;
@@ -63,6 +63,7 @@ export const loadSearchResults = async function (query) {
         title: rec.title,
         image: rec.image_url,
         publisher: rec.publisher,
+        ...(rec.key && { key: rec.key }),
       };
     });
   } catch (error) {
@@ -160,7 +161,7 @@ export const uploadRecipe = async function (newRecipe) {
     };
 
     // Fetch API & add to state
-    const data = await sendJSON(`${API_URL}?key=${API_KEY}`, recipe);
+    const data = await AJAX(`${API_URL}?key=${API_KEY}`, recipe);
     state.recipe = createRecipeObject(data);
     addBookmark(state.recipe);
   } catch (error) {
